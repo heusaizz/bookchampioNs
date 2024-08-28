@@ -1,19 +1,24 @@
 import Table from './components/Table';
 
-
 const App = () => {
-  let averageIncome = 0;
+  const netIncomes = [
+    { brand: 'McDonalds', income: 1291283 },
+    { brand: 'Burger King', income: 1927361 },
+    { brand: 'KFC', income: 1098463 }
+  ];
 
-  const calculateAverage = (netIncomes) => {
-    const totalIncome = netIncomes.reduce((acc, curr) => acc + curr.income, 0);
-    averageIncome = totalIncome / netIncomes.length;
-    return averageIncome;
+  const calculateAverage = (incomes) => {
+    const totalIncome = incomes.reduce((acc, curr) => acc + curr.income, 0);
+    return totalIncome / incomes.length;
   };
+
+  const averageIncome = calculateAverage(netIncomes);
 
   return (
     <div>
       <h1>Net Incomes by Brand</h1>
-      <Table onCalculateAverage={calculateAverage} />
+      <Table table={netIncomes} />
+      <p>Average Net Income: {averageIncome.toFixed(2)}</p>
     </div>
   );
 };

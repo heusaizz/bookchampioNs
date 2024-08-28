@@ -1,39 +1,37 @@
 import PropTypes from 'prop-types';
 
-const Table = ({ onCalculateAverage }) => {
-    const netIncomes = [
-        { brand: 'McDonalds', income: 1291283 },
-        { brand: 'Burger King', income: 1927361 },
-        { brand: 'KFC', income: 1098463 }
-    ];
+const TableItem = ({ brand, income }) => (
+    <tr>
+        <td>{brand}</td>
+        <td>{income}</td>
+    </tr>
+);
 
-    const averageIncome = onCalculateAverage(netIncomes);
+TableItem.propTypes = {
+    brand: PropTypes.string,
+    income: PropTypes.number,
+};
 
+const Table = ({ table }) => {
     return (
-        <div>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Brand</th>
-                        <th>Net Income</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {netIncomes.map((income, index) => (
-                        <tr key={index}>
-                            <td>{income.brand}</td>
-                            <td>{income.income}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <p>Average Net Income: {averageIncome.toFixed(2)}</p>
-        </div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Net Income</th>
+                </tr>
+            </thead>
+            <tbody>
+                {table.map((item, index) => (
+                    <TableItem key={index} brand={item.brand} income={item.income} />
+                ))}
+            </tbody>
+        </table>
     );
 };
 
 Table.propTypes = {
-    onCalculateAverage: PropTypes.func.isRequired,
+    table: PropTypes.array.isRequired,  
 };
 
 export default Table;
